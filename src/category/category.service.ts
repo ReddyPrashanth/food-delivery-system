@@ -29,7 +29,15 @@ export class CategoryService {
 
 
     async getCategories(): Promise<Category[]> {
-        return await this.categoryRepository.find();
+        return await this.categoryRepository.find({
+            join: {
+                alias: 'category', innerJoin: {items: 'category.items'}
+            },
+            where: q => {
+                q.where('items.active = :active', {active: true})
+            },
+            relations: ['items']
+        });
     }
 
     async getCategory(id: number): Promise<Category> {
@@ -38,5 +46,13 @@ export class CategoryService {
             return category;
         }
         throw new CategoryNotFoundException(id);
+    }
+
+    async deleteCategory(id: number) {
+        const result = await this.categoryRepository.delete({id});
+        if(result.affected === 0){
+            throw new CategoryNotFoundException(id);
+        }
+        return { id };
     }
 }

@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { CategoryModule } from './category/category.module';
+import { MenuItemModule } from './menu-item/menu-item.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CategoryModule } from './category/category.module';
       }),
     }),
     DatabaseModule,
-    CategoryModule
+    CategoryModule,
+    MenuItemModule
   ],
   controllers: [AppController],
   providers: [AppService],

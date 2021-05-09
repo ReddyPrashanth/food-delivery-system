@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { MenuItem } from '../../menu-item/entities/menu-item.entity';
 
 @Entity()
 export class Category extends BaseEntity {
@@ -7,4 +8,7 @@ export class Category extends BaseEntity {
 
     @Column({type: 'varchar', length: 50})
     name: string;
+
+    @OneToMany(() => MenuItem, item => item.category)
+    items: MenuItem[];
 }
