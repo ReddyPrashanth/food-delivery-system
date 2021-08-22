@@ -1,0 +1,41 @@
+version: '3.3'
+
+services: 
+    app:
+        container_name: food-delivery-app
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        ports: 
+            - 3001:3001
+        networks: 
+            - nestjs-network
+        command: npm run start:dev
+        depends_on: 
+            - database
+        volumes: 
+            - .:/user/src/app
+            - /usr/src/app/node_modules
+
+    database:
+        container_name: food-delivery-database
+        image: postgres
+        ports: 
+            - 5432:5432
+        restart: unless-stopped
+        volumes: 
+            - db_data:/var/lib/postgresql/data/
+        networks: 
+            - nestjs-network
+        environment: 
+            POSTGRES_DB: food-network
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: secret
+
+
+        
+networks: 
+    nestjs-network:
+
+volumes:
+    db_data: {}

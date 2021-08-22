@@ -11,17 +11,18 @@ import { MenuItemModule } from './menu-item/menu-item.module';
   imports: [
     ConfigModule.forRoot({
       validationSchema: joi.object({
-          POSTGRES_HOST: joi.string().required(),
-          POSTGRES_PORT: joi.number().required(),
-          POSTGRES_USER: joi.string().required(),
-          POSTGRES_PASSWORD: joi.string().required(),
-          POSTGRES_DB: joi.string().required(),
-          PORT: joi.number()
+        POSTGRES_HOST: joi.string().required(),
+        POSTGRES_PORT: joi.number().required(),
+        POSTGRES_USER: joi.string().required(),
+        POSTGRES_PASSWORD: joi.string().required(),
+        POSTGRES_DB: joi.string().required(),
+        PORT: joi.number(),
       }),
+      envFilePath: '.env',
     }),
     DatabaseModule,
     CategoryModule,
-    MenuItemModule
+    MenuItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],
